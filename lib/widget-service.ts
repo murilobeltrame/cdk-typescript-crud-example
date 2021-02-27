@@ -13,6 +13,11 @@ export class WidgetService extends cdk.Construct {
         bucket.grantReadWrite(lambda);
         const api = _.makeRestApi(this);
         api.root.addMethod('GET', _.makeLambdaIntegration(lambda));
+        api.root.addMethod('POST', _.makeLambdaIntegration(lambda));
+        const apiResource = api.root.addResource('{id}');
+        apiResource.addMethod('GET', _.makeLambdaIntegration(lambda));
+        // apiResource.addMethod('PUT', _.makeLambdaIntegration(lambda));
+        apiResource.addMethod('DELETE', _.makeLambdaIntegration(lambda));
 
     }
 
