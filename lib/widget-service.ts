@@ -2,6 +2,7 @@ import * as cdk from '@aws-cdk/core';
 import * as apigateway from '@aws-cdk/aws-apigateway';
 import * as lambda from '@aws-cdk/aws-lambda';
 import * as s3 from '@aws-cdk/aws-s3';
+import { Tracing } from '@aws-cdk/aws-lambda';
 
 export class WidgetService extends cdk.Construct {
     constructor(scope: cdk.Construct, id: string) {
@@ -41,6 +42,7 @@ export class WidgetService extends cdk.Construct {
             runtime: lambda.Runtime.NODEJS_12_X,
             code: lambda.Code.fromAsset('resources'),
             handler: 'widgets.main',
+            tracing: Tracing.ACTIVE,
             environment: environment
         });
     }
